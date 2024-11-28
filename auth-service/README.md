@@ -1,4 +1,4 @@
-# auth
+# auth-ts
 
 To install dependencies:
 

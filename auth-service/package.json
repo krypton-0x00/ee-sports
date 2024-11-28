@@ -1,19 +1,14 @@
 {
-  "name": "auth",
+  "name": "auth-ts",
   "module": "index.ts",
   "type": "module",
   "scripts": {
     "dev": "bun run --watch index.ts",
-    "build": "bun build index.ts",
-    "start": "bun ./dist/index.js"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "build": "npx tsc -b ",
+    "start": "node dist/index.js"
   },
   "dependencies": {
+    "@prisma/client": "^5.22.0",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",
@@ -21,6 +16,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
   }
 }

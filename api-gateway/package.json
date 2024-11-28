@@ -3,9 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run index.ts",
+    "start": "node dist/index.js",
     "dev": "bun run --watch index.ts",
-    "build": "bun build index.ts"
+    "build": "npx tsc -b"
   },
   "devDependencies": {
     "@types/bun": "latest"
