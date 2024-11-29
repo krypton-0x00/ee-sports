@@ -53,7 +53,7 @@ export default class AuthService{
 
         }
     }
-    async login(req:Request){
+    async login(req:Request):Promise<AuthServiceTypes.ReturnResponse>{
         try {
            const {email,password}:AuthServiceTypes.LoginBody = req.body; 
             if(!email || !password){
@@ -99,5 +99,42 @@ export default class AuthService{
 
         }
     }
+    async DeleteAccount (req:Request):Promise<AuthServiceTypes.ReturnResponse>{
+        try {
+           const {id} = req.body;
+            if (!id){
+                return {
+                    statusCode: 401,
+                    success:false,
+                    message:"Missing Required Fields"
+                }
+            }
+            const deleteUser = await this.authRepo.deleteUserById(id);
+            if(!deleteUser){
+                return {
+                    statusCode:401,
+                    success:false,
+                    message:"Invalid User ID"
+                } 
+            }
+            return {
+                statusCode:200,
+                success:true,
+                message:"Account Deleted Successfully"
+            }
+
+
+        
+        } catch (error) {
+             console.error("[-] Error Occured In AuthService:DeleteAccount:",error);
+            return {
+                    statusCode:500,
+                    success:false ,
+                    message:"Internal Server Error"
+            }  
+        }
+
+    }
+
     
 }

@@ -1,5 +1,3 @@
-import type { User } from "@prisma/client"
-
 export namespace AuthServiceTypes{
     
     export interface RegisterBody{
