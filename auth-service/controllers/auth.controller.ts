@@ -1,40 +1,54 @@
-import { response, type Request, type Response } from "express";
+import { type Request, type Response } from "express";
 import { prisma } from "../prisma/prismaClient";
 import AuthRepository from "../repo/auth.repo";
 import AuthService from "../services/auth.service";
+import { sendError, sendSuccess } from "../utils/responseHanlder.util";
+import Cookie from "../utils/cookie.util";
+import { authCookieName } from "../constants";
 
 
 const authRepo = new AuthRepository(prisma);
 const authService = new AuthService(authRepo);
 
 export default class AuthController {
-
-    public static async login(req:Request,res:Response){
+    private static async handleServiceCall(req: Request, res: Response, serviceMethod: Function) {
         try {
-            const response = await authService.login(req);
-            return res.status(response.statusCode).json({response})
+            const response = await serviceMethod(req);
+            sendSuccess(res, response.statusCode, response);
         } catch (error) {
-            console.error("[-] Error occured in AuthController:LoginFN",error);
-            return res.status(response.statusCode).json(response); 
+            console.error("[-] Error occured in AuthController:LoginFN", error);
+            sendError(res, 500, "Internal Server Error ",)
         }
     }
 
-    public static async register(req:Request,res:Response){
-        try {
-            const response = await authService.register(req);
-            return res.status(response.statusCode).json({response})
-        } catch (error) {
-            console.error("[-] Error occured in AuthController:RegisterFN",error);
-            return res.status(500).json({
-                success:false,
-                message:"Internal Server Error"
-            }); 
-        }
+
+
+    public static login(req: Request, res: Response) {
+        return AuthController.handleServiceCall(req, res, authService.login);
     }
-    public static async test(req:Request, res:Response){
-        res.status(200).json({
-            message:"it works"
-        })
+
+    public static register(req: Request, res: Response) {
+        return AuthController.handleServiceCall(req, res, authService.register);
     }
+
+    public static verifyEmail(req: Request, res: Response) {
+        return AuthController.handleServiceCall(req, res, authService.verifyEmail);
+    }
+
+    public static checkAuth(req: Request, res: Response) {
+        return AuthController.handleServiceCall(req, res, authService.checkAuth);
+    }
+
+    public static forgetPassword(req: Request, res: Response) {
+        return AuthController.handleServiceCall(req, res, authService.forgetPassword);
+    }
+    public static resetPassword(req: Request, res: Response) {
+        return AuthController.handleServiceCall(req, res, authService.resetPassword);
+    }
+
+    public static logout(req: Request, res: Response) {
+        return Cookie.removeCookie(res, authCookieName);
+    }
+
 }
 

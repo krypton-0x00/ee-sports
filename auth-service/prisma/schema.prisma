@@ -29,7 +29,8 @@ model User {
   accountStatus      AccountStatus    @default(PENDING_VERIFICATION)
   emailVerified      Boolean          @default(false)
   verificationToken  String?
-  resetPasswordToken String?
+  verificationExpiresAt DateTime?
+  resetPasswordToken String?          @unique
   resetPasswordExpiry DateTime?
   lastLogin          DateTime?
   loginAttempts      Int              @default(0)

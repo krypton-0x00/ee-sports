@@ -42,6 +42,16 @@ export default class AuthRepository {
       },
     });
   }
+  getUserByToken(token: string): Promise<User | null> {
+    return this.prisma.user.findFirst({
+      where: {
+        resetPasswordToken: token,
+        resetPasswordExpiry: {
+          gt: new Date()
+        }
+      },
+    });
+  }
   deleteUserById(id: string): Promise<User | null> {
     return this.prisma.user.delete({
       where: {
@@ -49,6 +59,7 @@ export default class AuthRepository {
       },
     });
   }
+
   updateUserById(
     id: string,
     updatedData: RepoTypes.UpdateUser

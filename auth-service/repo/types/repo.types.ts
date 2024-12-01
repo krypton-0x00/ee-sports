@@ -14,6 +14,7 @@ export namespace RepoTypes {
     accountStatus?: Prisma.UserUpdateInput["accountStatus"];
     emailVerified?: boolean;
     verificationToken?: string | null;
+    verificationExpiresAt?: Date | null;
     resetPasswordToken?: string | null;
     resetPasswordExpiry?: Date | null;
     lastLogin?: Date | null;
