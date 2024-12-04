@@ -1,4 +1,4 @@
-import { PrismaClient, type User } from "@prisma/client";
+import type { PrismaClient, User } from "@prisma/client";
 import type { RepoTypes } from "./types/repo.types";
 
 export default class AuthRepository {
@@ -22,7 +22,7 @@ export default class AuthRepository {
     });
   }
   getUserByEmail(email: string): Promise<User | null> {
-    return this.prisma.user.findFirst({
+    return this.prisma.user.findUnique({
       where: {
         email,
       },
@@ -47,8 +47,8 @@ export default class AuthRepository {
       where: {
         resetPasswordToken: token,
         resetPasswordExpiry: {
-          gt: new Date()
-        }
+          gt: new Date(),
+        },
       },
     });
   }
