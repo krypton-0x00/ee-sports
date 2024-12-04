@@ -1,4 +1,4 @@
-# notifaction-service
+# notification-service
 
 To install dependencies:
 
