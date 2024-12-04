@@ -4,6 +4,7 @@ import cors from 'cors'
 import logger from "./utils/logger";
 import errorHandler from "./middlewares/errorHandler.middleware";
 import morgan from "morgan";
+import { mailRouter } from "./routes/mail.router";
 
 type Port = string | undefined;
 
@@ -26,7 +27,8 @@ app.use(morgan('combined', {
     },
 }));
 
-//app.use("/mail",)
+app.use("/notify", mailRouter)
+
 app.get("/health", (req: Request, res: Response) => { res.status(200).json({ success: true }) })
 
 app.use(errorHandler)

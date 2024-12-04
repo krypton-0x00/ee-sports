@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 
-const mailRouter = Router()
+export const mailRouter = Router()
 
+mailRouter.post("/")
 

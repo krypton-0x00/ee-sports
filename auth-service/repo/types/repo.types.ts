@@ -24,14 +24,5 @@ export namespace RepoTypes {
     tournamentCount?: number;
   }
 
-  enum UserRole {
-    "PLAYER",
-    "ORGANIZATION",
-  }
-  enum AccountStatus {
-    "ACTIVE",
-    "SUSPENDED",
-    "PENDING_VERIFICATION",
-    "BANNED",
-  }
+
 }
