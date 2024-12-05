@@ -3,3 +3,9 @@ export interface SendMail {
     subject: string
     template: string
 }
+export interface SendOTPMailServiceType {
+    to: string,
+    name: string
+    otp: number
+    userId: string
+}

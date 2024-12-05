@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import dotenv from "dotenv";
-import type { SendMail } from "../types/sendMail.type";
+import type { SendMail } from "../types/sendMail.type.js";
+import logger from "../utils/logger.js";
 
 dotenv.config();
 
@@ -15,11 +16,13 @@ export default async function sendMail({ to, subject, template }: SendMail) {
             html: template,
         });
         if (error) {
-            return console.error({ error });
+            throw error;
         }
 
-        console.log({ data });
+        return data;
+
     } catch (error) {
-        console.error({ error });
+        logger.error(`Error occured in mail provider`)
+        throw error;
     }
 }

@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import type CreateNotification from "../types/createNotifaction.type";
+import type CreateNotification from "../types/createNotifaction.type.js";
 
 export default class NotificationRepo {
     private prisma;

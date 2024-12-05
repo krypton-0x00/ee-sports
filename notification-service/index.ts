@@ -1,10 +1,10 @@
 import express, { type Application, type Request, type Response } from "express"
 import dotenv from "dotenv"
 import cors from 'cors'
-import logger from "./utils/logger";
-import errorHandler from "./middlewares/errorHandler.middleware";
+import logger from "./utils/logger.js";
+import errorHandler from "./middlewares/errorHandler.middleware.js";
 import morgan from "morgan";
-import { mailRouter } from "./routes/mail.router";
+import { mailRouter } from "./routes/mail.router.js";
 
 type Port = string | undefined;
 
@@ -26,7 +26,6 @@ app.use(morgan('combined', {
         },
     },
 }));
-
 app.use("/notify", mailRouter)
 
 app.get("/health", (req: Request, res: Response) => { res.status(200).json({ success: true }) })
@@ -34,5 +33,5 @@ app.get("/health", (req: Request, res: Response) => { res.status(200).json({ suc
 app.use(errorHandler)
 
 app.listen(PORT, () => {
-    logger.info("Notifaction Server Started at port: ", PORT);
+    logger.info(`Notifaction Server Started at port: ${PORT}`);
 })
