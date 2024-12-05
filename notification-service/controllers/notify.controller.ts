@@ -16,6 +16,13 @@ export default class NotificationController {
     public static notify(req: Request, res: Response, next: NextFunction) {
         try {
             const { mailType, to, otp, userId, name }: CustomMailType = req.body;
+            
+            if (!mailType || !to || !otp || !userId || !name) {
+                return res.status(400).json({
+                  success: false,
+                  message: 'Missing required fields'
+                });
+              }
 
             //TODO:- Add other mail types
 
@@ -26,7 +33,7 @@ export default class NotificationController {
                     if (!emailResponse) {
                         throw new Error("Email Send Failed.")
                     }
-                    res.status(200).json({ sucess: true, message: "Sent" })
+                    res.status(200).json({ success: true, message: "Sent" })
 
                     break;
                 default:
