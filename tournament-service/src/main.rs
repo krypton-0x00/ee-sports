@@ -1,4 +1,4 @@
-use rocket::{get, launch, routes};
+use rocket::{get, launch, routes, Build, Rocket};
 
 mod config;
 mod db;
@@ -9,10 +9,19 @@ mod services;
 fn health() -> &'static str {
     "Ok"
 }
+async fn initialize_db(rocket: Rocket<Build>) -> Rocket<Build> {
+    db::db::connect_db();
+    rocket
+}
 
 #[launch]
 pub fn launch_server() -> _ {
-    rocket::build().mount("/", routes![health])
+    rocket::build()
+        .attach(rocket::fairing::AdHoc::on_ignite(
+            "Database Initilization",
+            initialize_db,
+        ))
+        .mount("/", routes![health])
 }
 
 #[cfg(test)]

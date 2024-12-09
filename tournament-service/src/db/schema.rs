@@ -51,6 +51,26 @@ diesel::table! {
 }
 
 diesel::table! {
+    teamplayers (id) {
+        id -> Text,
+        teamregistrationid -> Text,
+        playerid -> Text,
+        role -> Text,
+    }
+}
+
+diesel::table! {
+    teamregistrations (id) {
+        id -> Text,
+        tournamentid -> Text,
+        teamname -> Text,
+        teamleaderid -> Text,
+        registrationstatus -> Text,
+        registeredat -> Timestamp,
+    }
+}
+
+diesel::table! {
     use diesel::sql_types::*;
     use super::sql_types::TournamentStatus;
 
@@ -71,10 +91,13 @@ diesel::table! {
 diesel::joinable!(prizes -> tournaments (tournament_id));
 diesel::joinable!(team_players -> team_registrations (team_registration_id));
 diesel::joinable!(team_registrations -> tournaments (tournament_id));
+diesel::joinable!(teamplayers -> teamregistrations (teamregistrationid));
 
 diesel::allow_tables_to_appear_in_same_query!(
     prizes,
     team_players,
     team_registrations,
+    teamplayers,
+    teamregistrations,
     tournaments,
 );
