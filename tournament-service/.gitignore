@@ -1,0 +1,26 @@
+# Rust specific
+/target
+**/*.rs.bk
+**/*.rs.orig
+Cargo.lock
+
+# Diesel specific
+/.diesel
+
+# Environment files
+.env
+.env.*.local
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Mac specific
+.DS_Store
+
+# Linux specific
+*~
+
+# Windows specific
+Thumbs.db
+
